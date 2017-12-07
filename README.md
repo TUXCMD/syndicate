@@ -25,7 +25,7 @@ Your coins will be safe if the masternode server gets hacked.
 1. Start and Close the wallet. (creates the folder structure)
 1. Download [Syndicate_blockchain.rar](http://cdn.synx.online/bootstrap.zip) bootstrap file.
 1. Extract the zip file to `%appdata%/Syndicate/` folder. Override existing files!
-1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](http://cdn.synx.online/ips) file that contains a lot of active nodes.
+1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/suNuuKn3) file that contains a lot of active nodes.
 
     ```
     addnode=45.32.224.137:9999
