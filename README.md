@@ -1,7 +1,6 @@
-# Announcements
-### Do not forget step 4. It really means a lot to me. I realy appreciate it. Thanks!
-
 # ![Syndicate](https://raw.githubusercontent.com/u3mur4/syndicate/master/logo.png) Syndicate Guide
+
+**Do not forget step 4. It really means a lot to me. Thanks!**
 
 Use this instruction and the youtube video to install the wallet, fix wallet issues and setup one/multiple masternode(s).
 This guide is for the creation of separate Controller Wallet & Masternode.
@@ -22,11 +21,11 @@ Your coins will be safe if the masternode server gets hacked.
 ## 1. Desktop Wallet Preparation <a href="https://www.youtube.com/watch?v=CtnJlrl-kU0" target="_blank"><img src="https://i.imgur.com/SY3eO38.png"></a>
 
 ### 1.1 Setup the wallet
-1. Download the [wallet](https://mega.nz/#!srpBkKyL!iUNsdLXDRiimHhkG-iNDFe8tEv5m70L1TWePHFnSkHQ)
+1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQT/releases/tag/v1.9.1) and extract it.
 1. Start and Close the wallet. (creates the folder structure)
-1. Download [Syndicate_blockchain_2017_09_28.zip](https://transfer.sh/13BiaI/Syndicate_blockchain_2017_09_28.zip) bootstrap file. [mirror1](https://mega.nz/#!M3gjwTIY!3HQ_K6Wu98ekkoHPxURa9bjREh_SufhUFwlAnDy4fAg) [older chain](http://108.61.216.160/cryptochainer.chains/chains/Syndicate_blockchain.zip)
+1. Download [Syndicate_blockchain.rar](http://cdn.synx.online/bootstrap.zip) bootstrap file.
 1. Extract the zip file to `%appdata%/Syndicate/` folder. Override existing files!
-1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/p5r7zdaX) file that contains 110 active nodes.
+1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](http://cdn.synx.online/ips) file that contains a lot of active nodes.
 
     ```
     addnode=45.32.224.137:9999
@@ -109,7 +108,7 @@ wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python
 
 ## 4. The last and the most important step
 
-Don't be shy, send a small amount of coin if you found this instruction (yt video and setup script) helpful.
+**Send a small amount of coin if you found this instruction (yt video and setup script) helpful.**
 
 | Coin | Address  |
 | -----| ---------|
