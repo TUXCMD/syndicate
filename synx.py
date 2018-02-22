@@ -8,7 +8,7 @@ import math
 import os
 from urllib2 import urlopen
 
-SERVER_IP = urlopen('http://ip.42.pl/raw').read()
+SERVER_IP = urlopen('https://api.ipify.org/').read()
 NODE_LIST = urlopen('https://pastebin.com/raw/suNuuKn3').read()
 BOOTSTRAP_URL = "http://cdn.synx.online/bootstrap.zip"
 
