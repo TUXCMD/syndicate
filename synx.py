@@ -188,7 +188,6 @@ masternodeprivkey={}
 {}""".format(rpc_username, rpc_password, SERVER_IP, masternode_priv_key, NODE_LIST)
 
     print_info("Saving config file...")
-    run_command('su - mn1 -c "{}" '.format("mkdir -p /home/mn1/.Syndicate/ && touch /home/mn1/.Syndicate/Syndicate.conf"))
     f = open('/home/mn1/.Syndicate/Syndicate.conf', 'w')
     f.write(config)
     f.close()
