@@ -136,11 +136,14 @@ def compile_wallet():
         print_info("Compiling wallet...")
         run_command("chmod +x /opt/SyndicateQT/src/leveldb/build_detect_platform")
         run_command("chmod +x /opt/SyndicateQT/src/secp256k1/autogen.sh")
-        run_command("cd  /opt/SyndicateQT/src/ && make -f makefile.unix USE_UPNP=-")
-        run_command("strip /opt/SyndicateQT/src/Syndicated")
-        run_command("cp /opt/SyndicateQT/src/Syndicated /usr/local/bin")
-        run_command("cd /opt/SyndicateQT/src/ &&  make -f makefile.unix clean")
-        run_command("Syndicated")
+        run_command("chmod +x /opt/SyndicateQT/autogen.sh")
+        run_command("chmod +x /opt/SyndicateQT/contrib/install_db4.sh")
+        
+        run_command("cd /opt/SyndicateQT/ && ./contrib/install_db4.sh `pwd`")
+        run_command("cd /opt/SyndicateQT/ && ./autogen.sh")
+        run_command("cd /opt/SyndicateQT/ && ./configure BDB_LIBS='-L/opt/SyndicateQT/db4/lib -ldb_cxx-4.8' BDB_CFLAGS='-I/opt/SyndicateQT/db4/include'")
+        run_command("cd /opt/SyndicateQT/ && make")
+        run_command("cd /opt/SyndicateQT/ && make install")
 
 def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
