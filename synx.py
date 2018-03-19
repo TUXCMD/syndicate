@@ -197,7 +197,13 @@ masternodeprivkey={}
     f.close()
 
     print_info("Downloading blockchain bootstrap file...")
-    run_command('su - mn1 -c "{}" '.format("cd && wget --continue " + BOOTSTRAP_URL))
+	print_info("Install megatools")
+	run_command('apt-get update') 
+	run_command('apt-get --assume-yes install libtool libglib2.0-dev gobject-introspection libgmp3-dev nettle-dev asciidoc glib-networking openssl libcurl4-openssl-dev libssl-dev') 
+	run_command('wget http://megatools.megous.com/builds/megatools-1.9.97.tar.gz') 
+	run_command('tar xvf megatools-1.9.97.tar.gz') 
+	run_command('cd megatools-1.9.97/ && ./configure && make && make install') 
+	# run_command('su - mn1 -c "{}" '.format("megadl '{}'".format(BOOTSTRAP_URL)))
     
     print_info("Unzipping the file...")
     filename = BOOTSTRAP_URL[BOOTSTRAP_URL.rfind('/')+1:]
