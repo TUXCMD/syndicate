@@ -9,7 +9,7 @@ import os
 from urllib2 import urlopen
 
 SERVER_IP = urlopen('https://api.ipify.org/').read()
-NODE_LIST = urlopen('https://pastebin.com/raw/suNuuKn3').read()
+NODE_LIST = urlopen('https://pastebin.com/raw/1EwnyKnj').read()
 BOOTSTRAP_URL = "http://cdn.synx.online/bootstrap.zip"
 
 DEFAULT_COLOR = "\x1b[0m"
