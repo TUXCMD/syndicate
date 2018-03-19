@@ -124,7 +124,7 @@ def compile_wallet():
     run_command("apt-get --assume-yes install git unzip build-essential autoconf automake libtool libboost-all-dev libgmp-dev libssl-dev libcurl4-openssl-dev libevent-dev libdb-dev libdb++-dev git")
 
     is_compile = True
-    if os.path.isfile('/usr/local/bin/Syndicated'):
+    if os.path.isfile('/usr/local/bin/syndicated'):
         print_warning('Wallet already installed on the system')
         is_compile = False
 
@@ -149,7 +149,7 @@ def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
 
 def autostart_masternode(user):
-    job = "@reboot /usr/local/bin/Syndicated\n"
+    job = "@reboot /usr/local/bin/syndicated\n"
     
     p = Popen("crontab -l -u {} 2> /dev/null".format(user), stderr=STDOUT, stdout=PIPE, shell=True)
     p.wait()
@@ -163,7 +163,7 @@ def autostart_masternode(user):
 def setup_first_masternode():
     print_info("Setting up first masternode")
     run_command("useradd --create-home -G sudo mn1")
-    os.system('su - mn1 -c "{}" '.format("Syndicated -daemon &> /dev/null"))
+    os.system('su - mn1 -c "{}" '.format("syndicated -daemon &> /dev/null"))
 
     print_info("Open your desktop wallet config file (%appdata%/Syndicate/Syndicate.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
@@ -205,7 +205,7 @@ masternodeprivkey={}
 
     run_command('rm /home/mn1/.Syndicate/peers.dat') 
     autostart_masternode('mn1')
-    os.system('su - mn1 -c "{}" '.format('Syndicated -daemon &> /dev/null'))
+    os.system('su - mn1 -c "{}" '.format('syndicated -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
@@ -247,7 +247,7 @@ masternodeprivkey={}
     f.close()
     
     autostart_masternode('mn'+str(xth))
-    os.system('su - mn{} -c "{}" '.format(xth, 'Syndicated  -daemon &> /dev/null'))
+    os.system('su - mn{} -c "{}" '.format(xth, 'syndicated -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
     
 
@@ -285,7 +285,7 @@ Transaction index: [5k desposit transaction index. 'masternode outputs']
 """Masternodes setup finished!
 \tWait until all masternodes are fully synced. To check the progress login the 
 \tmasternode account (su mnX, where X is the number of the masternode) and run
-\tthe 'Syndicated getinfo' to get actual block number. Go to
+\tthe 'syndicate-cli getinfo' to get actual block number. Go to
 \thttp://explorer.syndicateltd.net/ website to check the latest block number. After the
 \tsyncronization is done add your masternodes to your desktop wallet.
 Datas:""" + mn_data)
