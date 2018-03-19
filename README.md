@@ -21,11 +21,11 @@ Your coins will be safe if the masternode server gets hacked.
 ## 1. Desktop Wallet Preparation <a href="https://www.youtube.com/watch?v=CtnJlrl-kU0" target="_blank"><img src="https://i.imgur.com/SY3eO38.png"></a>
 
 ### 1.1 Setup the wallet
-1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQT/releases/tag/v1.9.1) and extract it.
+1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQT/releases/tag/v1.9.9) and extract it.
 1. Start and Close the wallet. (creates the folder structure)
 1. Download [Syndicate_blockchain.rar](http://cdn.synx.online/bootstrap.zip) bootstrap file.
 1. Extract the zip file to `%appdata%/Syndicate/` folder. Override existing files!
-1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/suNuuKn3) file that contains a lot of active nodes.
+1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/1EwnyKnj) file that contains a lot of active nodes.
 
     ```
 	addnode=163.172.216.135:9999
@@ -54,15 +54,14 @@ Your coins will be safe if the masternode server gets hacked.
 1. Backup `%appdata%/Syndicate/wallet.dat` file. This contains your coins. DO NOT LOSE IT!
 
 ### 2.2 VPS setup
-1. Register on [vultr](https://www.vultr.com/?ref=7205683). (or [DigitalOcean](https://m.do.co/c/93892c483019)) (do not forget verify your e-mail)
+1. Register on [vultr](https://www.vultr.com/?ref=7205683).
 1. Send some money (10$ is enough for two months) to your account to deploy a server. (1 server cost 5$/mo, you can pay with bitcoin)
 1. Deploy a new server.
     - Server Type: Ubuntu 14.04  
     - Server Size: 5$/mo, 1GB memory (This server is capable to run 3 masternodes. One masternode need 300-400Mb memory)
 
 ### 2.3 Automatic Masternode Setup
-- Note: Use [this](https://github.com/u3mur4/syndicate/blob/master/MANUAL_SETUP.md) instruction to manualy setup the server. That guide maybe outdated.
-1. Download [putty](https://the.earth.li/~sgtatham/putty/latest/w64/putty-64bit-0.70-installer.msi)
+1. Download [putty](https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html)
 1. Start putty and login as root user. (Root password and server ip address is in vultr overview tab)
 1. Paste this command and answer the questions:
 ```
@@ -103,8 +102,7 @@ wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python
 	- The wallet will tell you its not running sometimes when it is. If you still receving the masternode rewards then everything is fine.
 1. I got stuck. Can you help me?
 	- Try to get help from the cummunity
-		- [synxhodl.slack.com](https://synxhodl.slack.com)
-		- [https://t.me/syndicateLTD ](https://t.me/syndicateLTD )
+		- [telegram](https://t.me/syndicateLTD )
 
 ## 4. The last and the most important step
 
