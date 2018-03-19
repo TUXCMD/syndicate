@@ -82,7 +82,7 @@ def print_welcome():
     print("          __/ |                                ")
     print("         |___/                                 ")
     print("")
-    print_info("Syndicate masternode(s) installer v1.1")
+    print_info("Syndicate masternode(s) installer v1.2")
 
 def update_system():
     print_info("Updating the system...")
