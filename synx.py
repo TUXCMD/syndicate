@@ -10,7 +10,7 @@ from urllib2 import urlopen
 
 SERVER_IP = urlopen('https://api.ipify.org/').read()
 NODE_LIST = urlopen('https://pastebin.com/raw/1EwnyKnj').read()
-BOOTSTRAP_URL = "http://cdn.synx.online/bootstrap.zip"
+BOOTSTRAP_URL = "https://github.com/SyndicateLtd/SyndicateQT/releases/download/v1.9.9/blockchain-20180212.zip"
 
 DEFAULT_COLOR = "\x1b[0m"
 PRIVATE_KEYS = []
@@ -28,7 +28,7 @@ def print_warning(message):
 def print_error(message):
     RED = '\033[91m'
     print(RED + "[*] " + str(message) + DEFAULT_COLOR)
-    time.sleep(1)
+    time.sleep(0.5)
 
 def get_terminal_size():
     import fcntl, termios, struct
@@ -88,7 +88,7 @@ def update_system():
     print_info("Updating the system...")
     run_command("apt-get update")
     # special install for grub
-    run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
+    run_command('DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
     run_command("apt-get upgrade -y")
 
 def chech_root():
@@ -197,13 +197,7 @@ masternodeprivkey={}
     f.close()
 
     print_info("Downloading blockchain bootstrap file...")
-	print_info("Install megatools")
-	run_command('apt-get update') 
-	run_command('apt-get --assume-yes install libtool libglib2.0-dev gobject-introspection libgmp3-dev nettle-dev asciidoc glib-networking openssl libcurl4-openssl-dev libssl-dev') 
-	run_command('wget http://megatools.megous.com/builds/megatools-1.9.97.tar.gz') 
-	run_command('tar xvf megatools-1.9.97.tar.gz') 
-	run_command('cd megatools-1.9.97/ && ./configure && make && make install') 
-	# run_command('su - mn1 -c "{}" '.format("megadl '{}'".format(BOOTSTRAP_URL)))
+	run_command('su - mn1 -c "{}" '.format("cd && wget --continue " + BOOTSTRAP_URL))
     
     print_info("Unzipping the file...")
     filename = BOOTSTRAP_URL[BOOTSTRAP_URL.rfind('/')+1:]

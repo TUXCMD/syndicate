@@ -23,7 +23,7 @@ Your coins will be safe if the masternode server gets hacked.
 ### 1.1 Setup the wallet
 1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQT/releases/tag/v1.9.9) and extract it.
 1. Start and Close the wallet. (creates the folder structure)
-1. Download [Syndicate_blockchain.rar](http://cdn.synx.online/bootstrap.zip) bootstrap file.
+1. Download [Syndicate_blockchain.zip](https://github.com/SyndicateLtd/SyndicateQT/releases/download/v1.9.9/blockchain-20180212.zip) bootstrap file.
 1. Extract the zip file to `%appdata%/Syndicate/` folder. Override existing files!
 1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/1EwnyKnj) file that contains a lot of active nodes.
 
