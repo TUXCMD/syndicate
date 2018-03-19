@@ -9,8 +9,8 @@ import os
 from urllib2 import urlopen
 
 SERVER_IP = urlopen('https://api.ipify.org/').read()
-NODE_LIST = urlopen('https://pastebin.com/raw/suNuuKn3').read()
-BOOTSTRAP_URL = "http://cdn.synx.online/bootstrap.zip"
+NODE_LIST = urlopen('https://pastebin.com/raw/1EwnyKnj').read()
+BOOTSTRAP_URL = "https://github.com/SyndicateLtd/SyndicateQT/releases/download/v1.9.9/blockchain-20180212.zip"
 
 DEFAULT_COLOR = "\x1b[0m"
 PRIVATE_KEYS = []
@@ -28,7 +28,7 @@ def print_warning(message):
 def print_error(message):
     RED = '\033[91m'
     print(RED + "[*] " + str(message) + DEFAULT_COLOR)
-    time.sleep(1)
+    time.sleep(0.5)
 
 def get_terminal_size():
     import fcntl, termios, struct
@@ -82,13 +82,13 @@ def print_welcome():
     print("          __/ |                                ")
     print("         |___/                                 ")
     print("")
-    print_info("Syndicate masternode(s) installer v1.1")
+    print_info("Syndicate masternode(s) installer v1.2")
 
 def update_system():
     print_info("Updating the system...")
     run_command("apt-get update")
     # special install for grub
-    run_command('sudo DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
+    run_command('DEBIAN_FRONTEND=noninteractive apt-get -y -o DPkg::options::="--force-confdef" -o DPkg::options::="--force-confold"  install grub-pc')
     run_command("apt-get upgrade -y")
 
 def chech_root():
@@ -124,7 +124,7 @@ def compile_wallet():
     run_command("apt-get --assume-yes install git unzip build-essential autoconf automake libtool libboost-all-dev libgmp-dev libssl-dev libcurl4-openssl-dev libevent-dev libdb-dev libdb++-dev git")
 
     is_compile = True
-    if os.path.isfile('/usr/local/bin/Syndicated'):
+    if os.path.isfile('/usr/local/bin/syndicated'):
         print_warning('Wallet already installed on the system')
         is_compile = False
 
@@ -136,17 +136,20 @@ def compile_wallet():
         print_info("Compiling wallet...")
         run_command("chmod +x /opt/SyndicateQT/src/leveldb/build_detect_platform")
         run_command("chmod +x /opt/SyndicateQT/src/secp256k1/autogen.sh")
-        run_command("cd  /opt/SyndicateQT/src/ && make -f makefile.unix USE_UPNP=-")
-        run_command("strip /opt/SyndicateQT/src/Syndicated")
-        run_command("cp /opt/SyndicateQT/src/Syndicated /usr/local/bin")
-        run_command("cd /opt/SyndicateQT/src/ &&  make -f makefile.unix clean")
-        run_command("Syndicated")
+        run_command("chmod +x /opt/SyndicateQT/autogen.sh")
+        run_command("chmod +x /opt/SyndicateQT/contrib/install_db4.sh")
+        
+        run_command("cd /opt/SyndicateQT/ && ./contrib/install_db4.sh `pwd`")
+        run_command("cd /opt/SyndicateQT/ && ./autogen.sh")
+        run_command("cd /opt/SyndicateQT/ && ./configure BDB_LIBS='-L/opt/SyndicateQT/db4/lib -ldb_cxx-4.8' BDB_CFLAGS='-I/opt/SyndicateQT/db4/include'")
+        run_command("cd /opt/SyndicateQT/ && make")
+        run_command("cd /opt/SyndicateQT/ && make install")
 
 def get_total_memory():
     return (os.sysconf('SC_PAGE_SIZE') * os.sysconf('SC_PHYS_PAGES'))/(1024*1024)
 
 def autostart_masternode(user):
-    job = "@reboot /usr/local/bin/Syndicated\n"
+    job = "@reboot /usr/local/bin/syndicated\n"
     
     p = Popen("crontab -l -u {} 2> /dev/null".format(user), stderr=STDOUT, stdout=PIPE, shell=True)
     p.wait()
@@ -160,7 +163,7 @@ def autostart_masternode(user):
 def setup_first_masternode():
     print_info("Setting up first masternode")
     run_command("useradd --create-home -G sudo mn1")
-    os.system('su - mn1 -c "{}" '.format("Syndicated -daemon &> /dev/null"))
+    os.system('su - mn1 -c "{}" '.format("syndicated -daemon &> /dev/null"))
 
     print_info("Open your desktop wallet config file (%appdata%/Syndicate/Syndicate.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
@@ -202,7 +205,7 @@ masternodeprivkey={}
 
     run_command('rm /home/mn1/.Syndicate/peers.dat') 
     autostart_masternode('mn1')
-    os.system('su - mn1 -c "{}" '.format('Syndicated -daemon &> /dev/null'))
+    os.system('su - mn1 -c "{}" '.format('syndicated -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
 
 def setup_xth_masternode(xth):
@@ -244,7 +247,7 @@ masternodeprivkey={}
     f.close()
     
     autostart_masternode('mn'+str(xth))
-    os.system('su - mn{} -c "{}" '.format(xth, 'Syndicated  -daemon &> /dev/null'))
+    os.system('su - mn{} -c "{}" '.format(xth, 'syndicated -daemon &> /dev/null'))
     print_warning("Masternode started syncing in the background...")
     
 
@@ -282,7 +285,7 @@ Transaction index: [5k desposit transaction index. 'masternode outputs']
 """Masternodes setup finished!
 \tWait until all masternodes are fully synced. To check the progress login the 
 \tmasternode account (su mnX, where X is the number of the masternode) and run
-\tthe 'Syndicated getinfo' to get actual block number. Go to
+\tthe 'syndicate-cli getinfo' to get actual block number. Go to
 \thttp://explorer.syndicateltd.net/ website to check the latest block number. After the
 \tsyncronization is done add your masternodes to your desktop wallet.
 Datas:""" + mn_data)
