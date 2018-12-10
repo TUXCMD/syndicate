@@ -21,26 +21,32 @@ Your coins will be safe if the masternode server gets hacked.
 ## 1. Desktop Wallet Preparation <a href="https://www.youtube.com/watch?v=CtnJlrl-kU0" target="_blank"><img src="https://i.imgur.com/SY3eO38.png"></a>
 
 ### 1.1 Setup the wallet
-1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQT/releases/tag/v1.9.9) and extract it.
+1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQt/releases) and extract it.
 1. Start and Close the wallet. (creates the folder structure)
-1. Download [Syndicate_blockchain.zip](https://github.com/SyndicateLtd/SyndicateQT/releases/download/v1.9.9/blockchain-20180212.zip) bootstrap file.
+1. Download [bootstrap.rar](https://mega.nz/#!5jYHDYJJ!Az4x8AQB6sqVgrS8R3HvR8k66CvJI8k-kzFP8Ua8zts) bootstrap file.
 1. Extract the zip file to `%appdata%/Syndicate/` folder. Override existing files!
-1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/1EwnyKnj) file that contains a lot of active nodes.
+1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/haX0XxCA) file that contains a lot of active nodes.
 
     ```
-	addnode=163.172.216.135:9999
-	addnode=104.156.245.238:9999
-	addnode=45.76.251.6:9999
-	addnode=50.79.240.50:9999
-	addnode=80.101.237.74:9999
-	addnode=45.76.119.94:9999
-	addnode=80.211.196.67:9999
-	addnode=104.171.245.75:9999
-	addnode=45.63.95.69:9999
+    addnode=45.63.41.34:25992
+    addnode=83.84.150.52:25992
+    addnode=159.69.159.234:25992
+    addnode=149.202.53.1:25992
+    addnode=45.77.178.74:25992
+    addnode=172.104.131.234:25992
+    addnode=149.28.196.72:25992
+    addnode=209.250.236.93:25992
+    addnode=45.32.236.18:25992
+    addnode=37.157.192.86:25992
+    addnode=95.179.167.245:25992
+    addnode=66.115.129.149:25992
+    addnode=45.76.32.38:25992
+    addnode=103.70.30.33:25992
+    addnode=207.148.67.196:25992
+    addnode=104.238.189.76:25992
     ```
 
-1. Delete `%appdata%/Syndicate/peers.dat` file.
-1. Start the wallet and wait for the sync. (30min to 10h depending on the number of the connections)
+1. Start the wallet and wait for the sync. (30min to 1h depending on the number of the connections)
 	
 ## 2. Masternode Setup <a href="https://www.youtube.com/watch?v=-Lt-ifQxS-w" target="_blank"><img src="https://i.imgur.com/SY3eO38.png"></a>
 
@@ -57,7 +63,7 @@ Your coins will be safe if the masternode server gets hacked.
 1. Register on [vultr](https://www.vultr.com/?ref=7205683).
 1. Send some money (10$ is enough for two months) to your account to deploy a server. (1 server cost 5$/mo, you can pay with bitcoin)
 1. Deploy a new server.
-    - Server Type: Ubuntu 14.04  
+    - Server Type: Ubuntu 16.04  
     - Server Size: 5$/mo, 1GB memory (This server is capable to run 3 masternodes. One masternode need 300-400Mb memory)
 
 ### 2.3 Automatic Masternode Setup
@@ -77,7 +83,7 @@ wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python
 	- Set the VPS ip and the port: [Ip:Port]
 	- Set the generated private key: step 2.1.5
 	- Click Add and after click Start
-	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://explorer.syndicateltd.net/](http://explorer.syndicateltd.net/)
+	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://explorer.synx.online/](http://explorer.synx.online/)
 	- Note: You can't edit the masternodes config in the wallet but you can edit the file. `%appdata%/Syndicate/masternode.conf`.
 
 ## 3. FAQ
@@ -91,13 +97,13 @@ wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python
 	- Click OK
 	- You can send selected amount to an address.
 	- Note: DO NOT EVER Transfer synx from that original 5k deposit or you'll break your Masternode.
-1. What is the password for the mn1, mn2, ...mnX accounts?
+1. What is the password for the mn1 account?
 	- There is no default password. When you create a user it does not have a password yet, so you cannot login with that username until you create a password. There is one other way to act as a new user without its password. As root type `su - mn1`
 	- You need to set a password for the user. Use the passwd command: `passwd mn1`
 1. I get the following error: "Could not allocate vin"
 	- Make sure your wallet fully synced and UNLOCKED.
 1. How many masternodes can I run using one IP/server?
-	- The limit is only the memory. One masternode requires 300-400mb ram. A server with 1GB memory can run 3 masternodes.
+	- One masternode per ip.
 1. My wallet says my masternodes are not running.
 	- The wallet will tell you its not running sometimes when it is. If you still receving the masternode rewards then everything is fine.
 1. I got stuck. Can you help me?
