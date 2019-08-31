@@ -1,4 +1,4 @@
-# ![Syndicate](https://raw.githubusercontent.com/u3mur4/syndicate/master/logo.png) Syndicate Guide
+# ![RPICoin](https://www.rpicoin.com/assets/img/logo/rpicoind.png) RPICoin $RPI Guide
 
 **Do not forget step 4. It really means a lot to me. Thanks!**
 
@@ -21,46 +21,26 @@ Your coins will be safe if the masternode server gets hacked.
 ## 1. Desktop Wallet Preparation <a href="https://www.youtube.com/watch?v=CtnJlrl-kU0" target="_blank"><img src="https://i.imgur.com/SY3eO38.png"></a>
 
 ### 1.1 Setup the wallet
-1. Download the [wallet](https://github.com/SyndicateLtd/SyndicateQt/releases) and extract it.
+1. Download the [wallet](https://github.com/rpicoin/rpicore/releases) and extract it.
 1. Start and Close the wallet. (creates the folder structure)
-1. Download [bootstrap.rar](https://mega.nz/#!5jYHDYJJ!Az4x8AQB6sqVgrS8R3HvR8k66CvJI8k-kzFP8Ua8zts) bootstrap file.
-1. Extract the zip file to `%appdata%/Syndicate/` folder. Override existing files!
-1. Add the following content to the `%appdata%/Syndicate/Syndicate.conf` file or use [this](https://pastebin.com/raw/haX0XxCA) file that contains a lot of active nodes.
+1. Download [bootstrap.zip](https://explorer.rpicoin.com/bootstrap.zip) bootstrap file.
+1. Extract the zip file to `%appdata%/RPICoin/` folder. Override existing files!
 
-    ```
-    addnode=45.63.41.34:25992
-    addnode=83.84.150.52:25992
-    addnode=159.69.159.234:25992
-    addnode=149.202.53.1:25992
-    addnode=45.77.178.74:25992
-    addnode=172.104.131.234:25992
-    addnode=149.28.196.72:25992
-    addnode=209.250.236.93:25992
-    addnode=45.32.236.18:25992
-    addnode=37.157.192.86:25992
-    addnode=95.179.167.245:25992
-    addnode=66.115.129.149:25992
-    addnode=45.76.32.38:25992
-    addnode=103.70.30.33:25992
-    addnode=207.148.67.196:25992
-    addnode=104.238.189.76:25992
-    ```
-
-1. Start the wallet and wait for the sync. (30min to 1h depending on the number of the connections)
+1. Start the wallet and wait for the sync. (Might take a few hours depending on the amount of connections, the speed of your server / desktop and internet connection.)
 	
 ## 2. Masternode Setup <a href="https://www.youtube.com/watch?v=-Lt-ifQxS-w" target="_blank"><img src="https://i.imgur.com/SY3eO38.png"></a>
 
 ### 2.1 Send the coins to your wallet
 1. Open Console (Help => Debug window => Console)
-1. Create a new address. `getnewaddress Masternode1`
-1. Send exactly 5000 coins to this address. (One transaction, pay attention to the fee)
+1. Create a new address. `getaccountaddress <Choose any name for your masternode>`
+1. Send exactly 10.000.000 (10M) coins to this address. (One transaction, pay attention to the fee)
 1. Wait for the conformation.
-1. Save the transaction id, index `masternode outputs`, and generate and save a new masternode private key `masternode genkey`.
+1. Save the transaction id, index `getmasternodeoutputs`, and generate and save a new masternode private key `createmasternodekey`.
 1. You can optionaly encrypt the wallet (Settings => Encypt wallet) for security reasons. Do not forget the password or you lose the coins that you have.
-1. Backup `%appdata%/Syndicate/wallet.dat` file. This contains your coins. DO NOT LOSE IT!
+1. Backup `%appdata%/rpicoin/wallet.dat` file. This contains your coins. DO NOT LOSE IT!
 
 ### 2.2 VPS setup
-1. Register on [vultr](https://www.vultr.com/?ref=7205683).
+1. Register on [vultr](https://www.vultr.com/?ref=).
 1. Send some money (10$ is enough for two months) to your account to deploy a server. (1 server cost 5$/mo, you can pay with bitcoin)
 1. Deploy a new server.
     - Server Type: Ubuntu 16.04  
@@ -71,7 +51,7 @@ Your coins will be safe if the masternode server gets hacked.
 1. Start putty and login as root user. (Root password and server ip address is in vultr overview tab)
 1. Paste this command and answer the questions:
 ```
-wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python synx.py
+wget https://raw.githubusercontent.com/tuxmd/rpicoin/scripts/synx.py && python synx.py
 ```
 
 ### 2.4 Add masternode on the desktop wallet
@@ -83,8 +63,8 @@ wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python
 	- Set the VPS ip and the port: [Ip:Port]
 	- Set the generated private key: step 2.1.5
 	- Click Add and after click Start
-	- Wait 1 day to start receiving coins. Check your the masternode address here: [http://explorer.synx.online/](http://explorer.synx.online/)
-	- Note: You can't edit the masternodes config in the wallet but you can edit the file. `%appdata%/Syndicate/masternode.conf`.
+	- Wait 1 day to start receiving coins. Check your the masternode address here: [https://explorer.rpicoin.com/](https://explorer.rpicoin.com/)
+	- Note: You can't edit the masternodes config in the wallet but you can edit the file. `%appdata%/rpicoin/masternode.conf`.
 
 ## 3. FAQ
 
@@ -108,16 +88,6 @@ wget https://raw.githubusercontent.com/u3mur4/syndicate/master/synx.py && python
 	- The wallet will tell you its not running sometimes when it is. If you still receving the masternode rewards then everything is fine.
 1. I got stuck. Can you help me?
 	- Try to get help from the cummunity
-		- [telegram](https://t.me/syndicateLTD )
-
-## 4. The last and the most important step
-
-**Send a small amount of coin if you found this instruction (yt video and setup script) helpful.**
-
-| Coin | Address  |
-| -----| ---------|
-| SYNX | SNoGsL8Ej7DuYcx5v2Yy1HfXkMoZZmzEym  |
-| BTC  | 33CrDPyMpcwJFyMTceVMTLJYLR8zBSsnWm  |
-| ETH  | 0x9a794240b456B8dD5593a7e8d7AE92f4ca4D9D2f |
+		- [telegram](https://t.me/RPICoin)
 
 	
