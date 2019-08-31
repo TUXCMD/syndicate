@@ -1,6 +1,6 @@
 # ![RPICoin](https://www.rpicoin.com/assets/img/logo/rpicoind.png) RPICoin $RPI Guide
 
-**Do not forget step 4. It really means a lot to me. Thanks!**
+**This guide is for deplying a RPICoin Masternode on a Linux VPS**
 
 Use this instruction and the youtube video to install the wallet, fix wallet issues and setup one/multiple masternode(s).
 This guide is for the creation of separate Controller Wallet & Masternode.
