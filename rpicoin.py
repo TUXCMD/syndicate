@@ -10,11 +10,11 @@ from urllib2 import urlopen
 
 SERVER_IP = urlopen('https://api.ipify.org/').read()
 NODE_LIST = urlopen('https://pastebin.com/raw/haX0XxCA').read()
-BOOTSTRAP_URL = "https://mega.nz/#!5jYHDYJJ!Az4x8AQB6sqVgrS8R3HvR8k66CvJI8k-kzFP8Ua8zts"
-WALLET_URL = "https://github.com/SyndicateLtd/SyndicateQt/releases/download/x2.1.0/Syndicate-2.1.0-linux64.zip"
-MN_DAEMON = "syndicated"
-MN_CLI = "syndicate-cli"
-MN_LFOLDER = ".syndicate"
+BOOTSTRAP_URL = "https://explorer.rpicoin.com/downloads/bootstrap.dat"
+WALLET_URL = "https://github.com/rpicoin/rpicore/releases/download/v0.4.1/rpicoin-0.4.1-x86_64-linux-gnu.tar.gz"
+MN_DAEMON = "rpicoind"
+MN_CLI = "rpicoin-cli"
+MN_LFOLDER = ".rpicoin"
 
 DEFAULT_COLOR = "\x1b[0m"
 PRIVATE_KEYS = []
@@ -77,19 +77,17 @@ def run_command(command):
 
 def print_welcome():
     os.system('clear')
-    print("   _____                 _ _           _       ")
-    print("  / ____|               | (_)         | |      ")
-    print(" | (___  _   _ _ __   __| |_  ___ __ _| |_ ___ ")
-    print("  \___ \| | | | '_ \ / _` | |/ __/ _` | __/ _ \\")
-    print("  ____) | |_| | | | | (_| | | (_| (_| | ||  __/")
-    print(" |_____/ \__, |_| |_|\__,_|_|\___\__,_|\__\___|")
-    print("          __/ |                                ")
-    print("         |___/                                 ")
+    print("                                                     ")
+    print(" :::====  :::====  ::: :::===== :::====  ::: :::= ===")
+    print(" :::  === :::  === ::: :::      :::  === ::: :::=====")
+    print(" =======  =======  === ===      ===  === === ========")
+    print(" === ===  ===      === ===      ===  === === === ====")
+    print(" ===  === ===      ===  =======  ======  === ===  ===")
     print("")
-    print_info("Syndicate masternode installer v1.3")
+    print_info("RPICOIN Master Node Installer Script v041")
 
 def update_system():
-    print_info("Updating the system...")
+    print_info("Updating the system...").0
     run_command("apt-get update")
     run_command("apt-get upgrade -y")
 
@@ -113,16 +111,16 @@ def install_wallet():
         f.write(line)
         f.close()
 
-    print_info("Installing wallet build dependencies...")
+    print_info("Installing required build dependencies...")
     run_command("apt-get --assume-yes install git unzip") 
 
     is_install = True
-    if os.path.isfile('/usr/local/bin/syndicated'):
+    if os.path.isfile('/usr/local/bin/rpioind'):
         print_warning('Wallet already installed on the system')
         is_install = False
 
     if is_install:
-        print_info("Downloading wallet...")
+        print_info("Downloading the wallet...")
         run_command("wget {} -O /tmp/wallet.zip".format(WALLET_URL ))
         print_info("Installing wallet...")
         run_command("cd /tmp && unzip -u wallet.zip")
@@ -131,7 +129,7 @@ def install_wallet():
         run_command("chmod +x /usr/local/bin/{} /usr/local/bin/{}".format(MN_DAEMON, MN_CLI))
 
 def autostart_masternode(user):
-    job = "@reboot /usr/local/bin/syndicated\n"
+    job = "@reboot /usr/local/bin/rpicoind\n"
     
     p = Popen("crontab -l -u {} 2> /dev/null".format(user), stderr=STDOUT, stdout=PIPE, shell=True)
     p.wait()
@@ -146,21 +144,21 @@ def setup_masternode():
     print_info("Setting up first masternode")
     run_command("useradd --create-home -G sudo mn1")
 
-    print_info("Open your desktop wallet config file (%appdata%/syndicate/syndicate.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
+    print_info("Open your desktop wallet config file (%appdata%/rpicoin/rpicoin.conf) and copy your rpc username and password! If it is not there create one! E.g.:\n\trpcuser=[SomeUserName]\n\trpcpassword=[DifficultAndLongPassword]")
     global rpc_username
     global rpc_password
     rpc_username = raw_input("rpcuser: ")
     rpc_password = raw_input("rpcpassword: ")
 
-    print_info("Open your wallet console (Help => Debug window => Console) and create a new masternode private key: masternode genkey")
+    print_info("Open your wallet console (Help => Debug window => Console) and create a new masternode private key: createmasternodekey")
     masternode_priv_key = raw_input("masternodeprivkey: ")
     PRIVATE_KEYS.append(masternode_priv_key)
     
     config = """rpcuser={}
 rpcpassword={}
 rpcallowip=127.0.0.1
-rpcport=25993
-port=25992
+rpcport=18002
+port=18001
 server=1
 listen=1
 daemon=1
@@ -169,11 +167,12 @@ mnconflock=1
 masternode=1
 masternodeaddr={}:25992
 masternodeprivkey={}
+maxconnections=128
 {}""".format(rpc_username, rpc_password, SERVER_IP, masternode_priv_key, NODE_LIST)
 
     print_info("Saving config file...")
-    run_command('su - mn1 -c "{}" '.format("mkdir -p /home/mn1/.syndicate/ && touch /home/mn1/.syndicate/syndicate.conf"))
-    f = open('/home/mn1/.syndicate/syndicate.conf', 'w')
+    run_command('su - mn1 -c "{}" '.format("mkdir -p /home/mn1/.rpicoin/ && touch /home/mn1/.rpicoin/rpicoin.conf"))
+    f = open('/home/mn1/.rpicoin/rpicoin.conf', 'w')
     f.write(config)
     f.close()
 
@@ -186,10 +185,10 @@ masternodeprivkey={}
     run_command("apt-get --assume-yes install unrar")
     run_command('su - mn1 -c "{}" '.format("cd && unrar x -o+ {} {}".format(filename, MN_LFOLDER)))
 
-    #run_command('rm /home/mn1/.syndicate/peers.dat') 
+    #run_command('rm /home/mn1/.rpicoin/peers.dat') 
     autostart_masternode('mn1')
-    os.system('su - mn1 -c "{}" '.format('syndicated -daemon'))
-    print_warning("Masternode started syncing in the background...")
+    os.system('su - mn1 -c "{}" '.format('rpicoind -daemon'))
+    print_warning("Masternode started - running & syncing in the background...")
 
 def porologe():
 
@@ -212,9 +211,9 @@ Transaction index: [5k desposit transaction index. 'masternode outputs']
 """Masternodes setup finished!
 \tWait until masternode is fully synced. To check the progress login the 
 \tmasternode account (su mn1) and run
-\tthe 'syndicate-cli getblockchaininfo' to get actual block number. Go to
-\thttp://explorer.synx.online/ website to check the latest block number. After the
-\tsyncronization is done add your masternode to your desktop wallet.
+\tthe 'rpicoin-cli getinfo' to get actual block number. Go to
+\thttps://explorer.rpicoin.com/ website to check the latest block number. After the
+\tsyncronization is done add your masternode to your desktop (controller) wallet.
 Data:""" + mn_data)
 
     print_warning(imp.decode('rot13').decode('unicode-escape'))
